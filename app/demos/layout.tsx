@@ -2,15 +2,17 @@ import Sidebar from "@/components/Sidebar";
 import React from "react";
 
 function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-	return (
-		<div className="min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black overflow-hidden">
-			<div className="h-screen flex overflow-hidden">
-				<Sidebar />
-				{/* Main Content Area */}
-				<div className="flex-1 p-8">{children}</div>
-			</div>
-		</div>
-	);
+    return (
+        <div className="bg-background min-h-screen items-center justify-center overflow-hidden">
+            <div className="flex h-screen overflow-hidden">
+                <Sidebar />
+                {/* Main Content Area */}
+                {/* overflow: auto 内容超出边界时添加滚动条 */}
+                <div className="min-h-screen flex-1 overflow-auto">{children}</div>
+                {/* <div className="min-h-screen flex-1 p-8">{children}</div> */}
+            </div>
+        </div>
+    );
 }
 
 export default Layout;

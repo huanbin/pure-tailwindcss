@@ -1,26 +1,149 @@
 @import "tailwindcss";
 
+/* 自定义主题变量 @theme指令，主体变量会生成tailwindcss utility类，比如bg-lovely-pink、text-lovely-pink */
+@theme {
+    --color-lovely-pink: #ff69b4;
+}
+
+/* 定义CSS常规变量 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    /* 背景色 */
+    --background: #ffffff;
+    --hover-background: #f5f5f5;
+    /* 前景色，文本色 */
+    --foreground: #171717;
+    --hover-foreground: #f6f4f4;
+    /* 字体 */
+    --font-family: Arial, Helvetica, sans-serif;
+    /* 颜色 */
+    /* 强调色 */
+    --accent: var(--color-pink-500);
+    /* 品牌色  */
+    --brand: var(--color-teal-500);
+    /* 中性色 */
+    --neutral: var(--color-slate-500);
+    /* 错误、成功、警告状态色 */
+    --error: var(--color-red-500);
+    --success: var(--color-green-500);
+    --warning: var(--color-yellow-500);
+    --info: var(--color-gray-200);
 }
 
+/* 暗黑模式下的主题变量 */
+[data-theme="dark"] {
+    --background: #171717;
+    --hover-background: #2c2c2c;
+    --foreground: #ffffff;
+    --hover-foreground: #f6f4f4;
+    --font-family: Arial, Helvetica, sans-serif;
+    /* 颜色 */
+    /* 强调色 */
+    --accent: var(--color-white);
+    /* 品牌色  */
+    --brand: var(--color-gray-500);
+    /* 中性色 */
+    --neutral: var(--color-slate-500);
+    /* 错误、成功、警告状态色 */
+    --error: var(--color-red-500);
+    --success: var(--color-green-500);
+    --warning: var(--color-yellow-500);
+    --info: var(--color-blue-200);
+}
+
+/* 引用css变量 */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-hover-background: var(--hover-background);
+    --color-foreground: var(--foreground);
+    --color-hover-foreground: var(--hover-foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    /* 颜色 */
+    /* 强调色 */
+    --color-accent: var(--accent);
+    /* 品牌色  */
+    --color-brand: var(--brand);
+    /* 中性色 */
+    --color-neutral: var(--neutral);
+    /* 错误、成功、警告状态色 */
+    --color-error: var(--error);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-info: var(--info);
+
+    /* 动画 */
+    --animate-slide-in-left: slide-in-left 0.5s ease-out forwards;
+
+    @keyframes slide-in-left {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    --animate-scale-in: scale-in 0.5s ease-in forwards;
+    @keyframes scale-in {
+        0% {
+            scale: 0;
+        }
+
+        80% {
+            scale: 0.8;
+        }
+
+        100% {
+            scale: 1;
+        }
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* 定义组件 */
+@layer components {
+    .card {
+        @apply animate-scale-in rounded-lg bg-white text-black shadow-lg;
+    }
+
+    .btn {
+        @apply rounded px-4 py-2 font-semibold transition;
+    }
+
+    .btn-circle {
+        @apply rounded-full p-4;
+    }
+
+    .btn-primary {
+        @apply text-foreground bg-brand hover:bg-brand/80 transition duration-300 ease-in-out;
+    }
+
+    .btn-outline {
+        @apply text-foreground outline-brand hover:bg-brand bg-background outline transition duration-300 ease-in-out;
+    }
 }
+
+/* 自定义utility类  */
+@utility content-auto {
+    /* 控制元素的渲染行为 */
+    /* content-visibility: hidden; */
+    content-visibility: auto;
+}
+/* prefers-color-scheme */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+} */
+
+/* 自定义主题 */
+/* @custom-variant dark (&:where([data-theme="dark"] *)); */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-family);
 }
