@@ -9,6 +9,8 @@ function DemosPage() {
         { name: "Button Page Demo", href: "/demos/button" },
         { name: "Custom theme Page Demo", href: "/demos/custom" },
         { name: "Basic Table Page Demo", href: "/demos/table/basic" },
+        { name: "Resize Table Page Demo", href: "/demos/table/resize" },
+        { name: "Pin Table Page Demo", href: "/demos/table/pin" },
     ];
 
     return (

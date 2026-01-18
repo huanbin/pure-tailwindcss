@@ -8,7 +8,7 @@ function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
                 <Sidebar />
                 {/* Main Content Area */}
                 {/* overflow: auto 内容超出边界时添加滚动条 */}
-                <div className="min-h-screen flex-1 overflow-auto">{children}</div>
+                <div className="min-h-screen flex-1 overflow-auto px-4">{children}</div>
                 {/* <div className="min-h-screen flex-1 p-8">{children}</div> */}
             </div>
         </div>

@@ -146,7 +146,7 @@ function PinTable() {
                 },
             }}
         >
-            <caption className="sticky top-0 h-30 bg-gray-600">
+            <caption className="sticky top-0 border bg-gray-300 p-4">
                 <div className="mb-4 space-y-3">
                     <div className="text-left">
                         <h2>VendorPage</h2>
@@ -156,7 +156,8 @@ function PinTable() {
                         </p>
                     </div>
                     <div className="flex flex-row space-x-3">
-                        <form className="border-foreground relative flex w-120 items-center justify-center overflow-hidden rounded-md border">
+                        {/* has-focus根据子元素设置父元素样式 */}
+                        <form className="border-foreground has-focus:border-accent relative flex w-120 items-center justify-center overflow-hidden rounded-md border transition duration-75 ease-in-out">
                             <input
                                 name="keyword"
                                 placeholder="请输入关键字"
@@ -191,7 +192,7 @@ function PinTable() {
             </caption>
             <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id} className="sticky top-31 bg-gray-600">
+                    <tr key={headerGroup.id} className="sticky top-39.5 bg-gray-300">
                         {headerGroup.headers.map((header) => (
                             <th
                                 key={header.id}
