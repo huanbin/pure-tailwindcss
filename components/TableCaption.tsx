@@ -4,7 +4,7 @@ import Dropdown from './Dropdown'
 
 function TableCaption<TData>({ densityIndex, table, densityHandler }: { densityIndex: number, table: Table<TData>, densityHandler: () => void }) {
     return (
-        <caption className="sticky top-0 border bg-invert p-4">
+        <caption className="sticky top-0 border bg-invert p-4 z-1000">
             <div className="mb-4 space-y-3">
                 <div className="text-left">
                     <h2>VendorPage</h2>

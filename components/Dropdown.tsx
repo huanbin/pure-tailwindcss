@@ -47,7 +47,7 @@ export default function Dropdown({ columns, onClickHandler, isVisible }: { colum
 
             {/* Dropdown menu */}
             {isOpen && (
-                <div className="absolute right-0  rounded-md overflow-hidden shadow bg-white">
+                <div className="absolute top-full right-0 left-0 animate-slide-in-bottom rounded-md overflow-hidden shadow bg-white">
 
                     {columns.map((columnId, index) => (
                         <div key={index} className="flex items-center justify-between px-4 py-2  truncate text-sm text-black hover:bg-gray-100" onClick={() => handleSelect(columnId)}>
