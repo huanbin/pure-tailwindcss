@@ -46,3 +46,7 @@ function TableHead<TData>({ table, densityIndex }: { table: Table<TData>, densit
 }
 
 export default TableHead
+
+export function CreateHeader({ headerText }: { headerText: string }) {
+    return <div className="whitespace-nowrap">{headerText}</div>
+}

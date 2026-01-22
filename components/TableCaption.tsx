@@ -1,6 +1,8 @@
+import { Table } from '@tanstack/react-table'
 import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon } from 'lucide-react'
+import Dropdown from './Dropdown'
 
-function TableCaption({ densityIndex, densityHandler }: { densityIndex: number, densityHandler: () => void }) {
+function TableCaption<TData>({ densityIndex, table, densityHandler }: { densityIndex: number, table: Table<TData>, densityHandler: () => void }) {
     return (
         <caption className="sticky top-0 border bg-invert p-4">
             <div className="mb-4 space-y-3">
@@ -42,6 +44,11 @@ function TableCaption({ densityIndex, densityHandler }: { densityIndex: number, 
                                 <Rows2Icon className="text-foreground h-4 w-4" />
                             )}
                         </button>
+
+                        <Dropdown columns={table.getAllLeafColumns().map(column => { return column.id })}
+                            onClickHandler={(columnId) => table.getColumn(columnId)?.toggleVisibility()}
+                            isVisible={(columnId) => table.getColumn(columnId)?.getIsVisible() as boolean}
+                        />
                     </div>
                 </div>
             </div>

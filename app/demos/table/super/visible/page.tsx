@@ -1,8 +1,8 @@
 "use client";
+import React from 'react'
 import SuperTable from '@/components/SuperTable'
 import { faker } from '@faker-js/faker';
 import { createColumnHelper } from '@tanstack/react-table';
-import React from 'react'
 import { CreateHeader } from '@/components/TableHead';
 
 type Vendor = {
@@ -39,6 +39,8 @@ const defaultColumns = [
         //header: "序号",
         header: () => <CreateHeader headerText="序号" />,
         cell: (props) => <div className="text-center">{props.row.id}</div>,
+        //禁止该列隐藏
+        enableHiding: false
     }),
     columnHelper.accessor("id", {
         // cell: Used for formatting cells.
@@ -99,14 +101,23 @@ const defaultColumns = [
 ];
 
 
-function SuperTablePage1() {
+function VisibleColumn() {
 
     const [columns] = React.useState<typeof defaultColumns>(() => [...defaultColumns]);
 
 
     return (
-        <SuperTable data={data} columns={columns} />
+        <SuperTable data={data} columns={columns}
+            //
+            initState={{
+                columnVisibility: {
+                    email: false,
+                    createDate: false,
+                    updateDate: false,
+                },
+            }}
+        />
     )
 }
 
-export default SuperTablePage1
+export default VisibleColumn
