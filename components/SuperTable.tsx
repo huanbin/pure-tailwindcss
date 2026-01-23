@@ -52,13 +52,12 @@ function SuperTable<TData>({
 
     return (
         <table
-            className="border-separate border-spacing-0 rounded border-[0.5px]"
+            className="min-w-full border-separate border-spacing-0 rounded border-[0.5px]"
             {...{
                 style: {
                     width: table.getCenterTotalSize(),
                 },
-            }}
-        >
+            }}>
             <TableCaption
                 densityIndex={densityIndex}
                 densityHandler={densityHandler}

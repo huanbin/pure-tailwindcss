@@ -41,9 +41,8 @@ export default function Dropdown({
             {/* Dropdown button */}
             <button
                 type="button"
-                className="hover:bg-background bg-invert inline-flex h-full w-full items-center justify-center rounded-md border border-gray-300 px-4 text-sm font-medium text-black shadow-sm"
-                onClick={toggleDropdown}
-            >
+                className="hover:text-foreground inline-flex h-full w-full items-center justify-center rounded-md border border-gray-300 bg-white/10 px-4 text-sm font-medium text-black shadow-sm hover:bg-white/30"
+                onClick={toggleDropdown}>
                 {/* {selectedLanguage} */}
                 Hide Columns
                 <ChevronUp
@@ -56,13 +55,12 @@ export default function Dropdown({
 
             {/* Dropdown menu */}
             {isOpen && (
-                <div className="animate-slide-in-bottom divide-invert absolute top-full right-0 left-0 divide-y overflow-hidden rounded-md bg-white shadow">
+                <div className="animate-slide-in-bottom divide-invert bg-invert absolute top-full right-0 left-0 divide-y overflow-hidden rounded-md shadow">
                     {columns.map((columnId, index) => (
                         <div
                             key={index}
-                            className="flex items-center justify-between truncate px-4 py-4 text-sm text-black hover:bg-gray-100"
-                            onClick={() => handleSelect(columnId)}
-                        >
+                            className="flex items-center justify-between truncate px-4 py-4 text-sm text-black hover:bg-gray-100/10"
+                            onClick={() => handleSelect(columnId)}>
                             {columnId}
                             <CheckIcon
                                 className={clsx(
