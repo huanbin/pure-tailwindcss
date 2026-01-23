@@ -1,14 +1,13 @@
-import { flexRender, Table } from '@tanstack/react-table';
-import clsx from 'clsx';
+import { flexRender, Table } from "@tanstack/react-table";
+import clsx from "clsx";
 
 const density = ["py-2", "py-4", "py-6"];
 
-
-function TableHead<TData>({ table, densityIndex }: { table: Table<TData>, densityIndex: number }) {
+function TableHead<TData>({ table, densityIndex }: { table: Table<TData>; densityIndex: number }) {
     return (
         <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className="sticky top-39.5 bg-invert">
+                <tr key={headerGroup.id} className="bg-invert sticky top-39">
                     {headerGroup.headers.map((header) => (
                         <th
                             key={header.id}
@@ -23,10 +22,7 @@ function TableHead<TData>({ table, densityIndex }: { table: Table<TData>, densit
                         >
                             {header.isPlaceholder
                                 ? null
-                                : flexRender(
-                                    header.column.columnDef.header,
-                                    header.getContext(),
-                                )}
+                                : flexRender(header.column.columnDef.header, header.getContext())}
 
                             <div
                                 className={clsx(
@@ -42,11 +38,11 @@ function TableHead<TData>({ table, densityIndex }: { table: Table<TData>, densit
                 </tr>
             ))}
         </thead>
-    )
+    );
 }
 
-export default TableHead
+export default TableHead;
 
 export function CreateHeader({ headerText }: { headerText: string }) {
-    return <div className="whitespace-nowrap">{headerText}</div>
+    return <div className="whitespace-nowrap">{headerText}</div>;
 }

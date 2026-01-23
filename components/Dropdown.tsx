@@ -1,10 +1,18 @@
-'use client';
-import { useState } from 'react';
-import { CheckIcon, ChevronUp } from 'lucide-react';
-import clsx from 'clsx';
+"use client";
+import { useState } from "react";
+import { CheckIcon, ChevronUp } from "lucide-react";
+import clsx from "clsx";
 
 //多选下拉框
-export default function Dropdown({ columns, onClickHandler, isVisible }: { columns: string[], onClickHandler: (columnId: string) => void, isVisible: (columnId: string) => boolean }) {
+export default function Dropdown({
+    columns,
+    onClickHandler,
+    isVisible,
+}: {
+    columns: string[];
+    onClickHandler: (columnId: string) => void;
+    isVisible: (columnId: string) => boolean;
+}) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState(new Set(columns));
 
@@ -18,44 +26,52 @@ export default function Dropdown({ columns, onClickHandler, isVisible }: { colum
 
     const handleSelect = (columnId: string) => {
         if (selectedLanguage.has(columnId)) {
-            selectedLanguage.delete(columnId)
+            selectedLanguage.delete(columnId);
         } else {
-            selectedLanguage.add(columnId)
+            selectedLanguage.add(columnId);
         }
         setSelectedLanguage(selectedLanguage);
         setIsOpen(false);
 
-        onClickHandler(columnId)
+        onClickHandler(columnId);
     };
 
     return (
-        <div className="relative inline-block text-center">
+        <div className="relative inline-block h-full text-center">
             {/* Dropdown button */}
             <button
                 type="button"
-                className="inline-flex justify-center w-full
-                items-center
-                               rounded-md border border-gray-300
-                               shadow-sm px-4 py-2 bg-white text-sm
-                               font-medium text-black hover:bg-gray-50"
+                className="hover:bg-background bg-invert inline-flex h-full w-full items-center justify-center rounded-md border border-gray-300 px-4 text-sm font-medium text-black shadow-sm"
                 onClick={toggleDropdown}
             >
                 {/* {selectedLanguage} */}
                 Hide Columns
-                <ChevronUp className={clsx("ml-2 size-4 rotate-180 transition-transform duration-300 ease-in-out", isOpen ? "rotate-360" : "")} />
+                <ChevronUp
+                    className={clsx(
+                        "ml-2 size-4 rotate-180 transition-transform duration-300 ease-in-out",
+                        isOpen ? "rotate-360" : "",
+                    )}
+                />
             </button>
 
             {/* Dropdown menu */}
             {isOpen && (
-                <div className="absolute top-full right-0 left-0 animate-slide-in-bottom rounded-md overflow-hidden shadow bg-white">
-
+                <div className="animate-slide-in-bottom divide-invert absolute top-full right-0 left-0 divide-y overflow-hidden rounded-md bg-white shadow">
                     {columns.map((columnId, index) => (
-                        <div key={index} className="flex items-center justify-between px-4 py-2  truncate text-sm text-black hover:bg-gray-100" onClick={() => handleSelect(columnId)}>
+                        <div
+                            key={index}
+                            className="flex items-center justify-between truncate px-4 py-4 text-sm text-black hover:bg-gray-100"
+                            onClick={() => handleSelect(columnId)}
+                        >
                             {columnId}
-                            <CheckIcon className={clsx("size-4 opacity-0", isVisible(columnId) && "opacity-100")} />
+                            <CheckIcon
+                                className={clsx(
+                                    "size-4 opacity-0",
+                                    isVisible(columnId) && "opacity-100",
+                                )}
+                            />
                         </div>
                     ))}
-
                 </div>
             )}
         </div>

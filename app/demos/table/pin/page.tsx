@@ -146,7 +146,7 @@ function PinTable() {
                 },
             }}
         >
-            <caption className="sticky top-0 border bg-invert p-4">
+            <caption className="bg-invert sticky top-0 border p-4">
                 <div className="mb-4 space-y-3">
                     <div className="text-left">
                         <h2>VendorPage</h2>
@@ -192,7 +192,7 @@ function PinTable() {
             </caption>
             <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id} className="sticky top-39.5 bg-invert">
+                    <tr key={headerGroup.id} className="bg-invert sticky top-39.5">
                         {headerGroup.headers.map((header) => (
                             <th
                                 key={header.id}
@@ -208,9 +208,9 @@ function PinTable() {
                                 {header.isPlaceholder
                                     ? null
                                     : flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext(),
-                                    )}
+                                          header.column.columnDef.header,
+                                          header.getContext(),
+                                      )}
 
                                 <div
                                     className={clsx(

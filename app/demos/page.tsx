@@ -11,6 +11,7 @@ function DemosPage() {
         { name: "Basic Table Page Demo", href: "/demos/table/basic" },
         { name: "Resize Table Page Demo", href: "/demos/table/resize" },
         { name: "Pin Table Page Demo", href: "/demos/table/pin" },
+        { name: "Hide  Table Column Page Demo", href: "/demos/table/super/visible" },
     ];
 
     return (

@@ -1,10 +1,18 @@
-import { Table } from '@tanstack/react-table'
-import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon } from 'lucide-react'
-import Dropdown from './Dropdown'
+import { Table } from "@tanstack/react-table";
+import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon, FileDown, FileUp } from "lucide-react";
+import Dropdown from "./Dropdown";
 
-function TableCaption<TData>({ densityIndex, table, densityHandler }: { densityIndex: number, table: Table<TData>, densityHandler: () => void }) {
+function TableCaption<TData>({
+    densityIndex,
+    table,
+    densityHandler,
+}: {
+    densityIndex: number;
+    table: Table<TData>;
+    densityHandler: () => void;
+}) {
     return (
-        <caption className="sticky top-0 border bg-invert p-4 z-1000">
+        <caption className="bg-invert sticky top-0 z-1000 border-b p-4">
             <div className="mb-4 space-y-3">
                 <div className="text-left">
                     <h2>VendorPage</h2>
@@ -29,31 +37,45 @@ function TableCaption<TData>({ densityIndex, table, densityHandler }: { densityI
                         </button>
                     </form>
 
-                    <div>
+                    <div className="space-x-3">
                         <button
                             className="btn btn-circle bg-white/10 hover:bg-white/30"
                             onClick={densityHandler}
                         >
-                            {densityIndex == 0 && (
-                                <Rows4Icon className="text-foreground h-4 w-4" />
-                            )}
-                            {densityIndex == 1 && (
-                                <Rows3Icon className="text-foreground h-4 w-4" />
-                            )}
-                            {densityIndex == 2 && (
-                                <Rows2Icon className="text-foreground h-4 w-4" />
-                            )}
+                            {densityIndex == 0 && <Rows4Icon className="text-foreground h-4 w-4" />}
+                            {densityIndex == 1 && <Rows3Icon className="text-foreground h-4 w-4" />}
+                            {densityIndex == 2 && <Rows2Icon className="text-foreground h-4 w-4" />}
                         </button>
 
-                        <Dropdown columns={table.getAllLeafColumns().map(column => { return column.id })}
-                            onClickHandler={(columnId) => table.getColumn(columnId)?.toggleVisibility()}
-                            isVisible={(columnId) => table.getColumn(columnId)?.getIsVisible() as boolean}
+                        <button
+                            className="btn btn-circle bg-white/10 hover:bg-white/30"
+                            onClick={() => {}}
+                        >
+                            <FileDown className="size-4" />
+                        </button>
+                        <button
+                            className="btn btn-circle bg-white/10 hover:bg-white/30"
+                            onClick={() => {}}
+                        >
+                            <FileUp className="size-4" />
+                        </button>
+
+                        <Dropdown
+                            columns={table.getAllLeafColumns().map((column) => {
+                                return column.id;
+                            })}
+                            onClickHandler={(columnId) =>
+                                table.getColumn(columnId)?.toggleVisibility()
+                            }
+                            isVisible={(columnId) =>
+                                table.getColumn(columnId)?.getIsVisible() as boolean
+                            }
                         />
                     </div>
                 </div>
             </div>
         </caption>
-    )
+    );
 }
 
-export default TableCaption
+export default TableCaption;
