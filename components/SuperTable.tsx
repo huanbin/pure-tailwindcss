@@ -20,6 +20,7 @@ function SuperTable<TData>({
     initState?: InitialTableState;
 }) {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
+        //"select-row": false,
         createDate: false,
         updateDate: false,
     });
@@ -31,6 +32,9 @@ function SuperTable<TData>({
         getCoreRowModel: getCoreRowModel(), //row model
         //列宽度更新模式
         columnResizeMode: "onChange",
+        //启用表行选择
+        enableRowSelection: true,
+        enableMultiRowSelection: true,
         state: {
             columnVisibility,
         },

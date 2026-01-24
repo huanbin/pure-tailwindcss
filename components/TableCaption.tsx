@@ -2,6 +2,7 @@ import { Table } from "@tanstack/react-table";
 import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon, FileDown, FileUp } from "lucide-react";
 import Dropdown from "./Dropdown";
 import Tooltip from "./Tooltip";
+import { json } from "node:stream/consumers";
 
 function TableCaption<TData>({
     densityIndex,
@@ -12,6 +13,12 @@ function TableCaption<TData>({
     table: Table<TData>;
     densityHandler: () => void;
 }) {
+    const handleImportSheet = () => {};
+    const handleDownloadSheet = () => {
+        const datas = table.getSelectedRowModel();
+        console.log(JSON.stringify(datas));
+    };
+
     return (
         <caption className="bg-invert sticky top-0 z-1000 border-b p-4">
             <div className="mb-4 space-y-3">
@@ -45,16 +52,17 @@ function TableCaption<TData>({
                             {densityIndex == 1 && <Rows3Icon className="text-foreground h-4 w-4" />}
                             {densityIndex == 2 && <Rows2Icon className="text-foreground h-4 w-4" />}
                         </button>
-
-                        <button
-                            className="btn btn-circle bg-white/10 hover:bg-white/30"
-                            onClick={() => {}}>
-                            <FileDown className="size-4" />
-                        </button>
                         <Tooltip tipText="下载excel文件">
                             <button
                                 className="btn btn-circle bg-white/10 hover:bg-white/30"
-                                onClick={() => {}}>
+                                onClick={handleDownloadSheet}>
+                                <FileDown className="size-4" />
+                            </button>
+                        </Tooltip>
+                        <Tooltip tipText="上传excel数据">
+                            <button
+                                className="btn btn-circle bg-white/10 hover:bg-white/30"
+                                onClick={handleImportSheet}>
                                 <FileUp className="size-4" />
                             </button>
                         </Tooltip>

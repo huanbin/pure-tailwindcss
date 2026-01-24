@@ -35,6 +35,26 @@ const columnHelper = createColumnHelper<Vendor>();
 
 const defaultColumns = [
     columnHelper.display({
+        id: "select-row",
+        header: ({ table }) => (
+            <input
+                type="checkbox"
+                checked={table.getIsAllRowsSelected()}
+                // indeterminate={table.getIsSomeRowsSelected()}
+                onChange={table.getToggleAllRowsSelectedHandler()} //or getToggleAllPageRowsSelectedHandler
+            />
+        ),
+        cell: ({ row }) => (
+            <input
+                type="checkbox"
+                checked={row.getIsSelected()}
+                disabled={!row.getCanSelect()}
+                onChange={row.getToggleSelectedHandler()}
+            />
+        ),
+        enableHiding: false,
+    }),
+    columnHelper.display({
         id: "actions",
         //header: "序号",
         header: () => <CreateHeader headerText="序号" />,
@@ -99,14 +119,13 @@ const defaultColumns = [
     },
 ];
 
-function VisibleColumn() {
+function RowSelectTable() {
     const [columns] = React.useState<typeof defaultColumns>(() => [...defaultColumns]);
 
     return (
         <SuperTable
             data={data}
             columns={columns}
-            //
             initState={{
                 columnVisibility: {
                     email: false,
@@ -118,4 +137,4 @@ function VisibleColumn() {
     );
 }
 
-export default VisibleColumn;
+export default RowSelectTable;

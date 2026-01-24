@@ -1,13 +1,15 @@
-import { flexRender, Table } from '@tanstack/react-table'
-import clsx from 'clsx'
+import { flexRender, Table } from "@tanstack/react-table";
+import clsx from "clsx";
 
 const density = ["py-2", "py-4", "py-6"];
 
-function TableBody<TData>({ table, densityIndex }: { table: Table<TData>, densityIndex: number }) {
+function TableBody<TData>({ table, densityIndex }: { table: Table<TData>; densityIndex: number }) {
     return (
         <tbody>
             {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-invert">
+                <tr
+                    key={row.id}
+                    className={clsx("hover:bg-invert", row.getIsSelected() && "bg-invert")}>
                     {row.getVisibleCells().map((cell) => (
                         <td
                             key={cell.id}
@@ -18,15 +20,14 @@ function TableBody<TData>({ table, densityIndex }: { table: Table<TData>, densit
                             )}
                             style={{
                                 width: cell.column.getSize(),
-                            }}
-                        >
+                            }}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                     ))}
                 </tr>
             ))}
         </tbody>
-    )
+    );
 }
 
-export default TableBody
+export default TableBody;
