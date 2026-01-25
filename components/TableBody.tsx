@@ -15,7 +15,7 @@ function TableBody<TData>({ table, densityIndex }: { table: Table<TData>; densit
                             key={cell.id}
                             className={clsx(
                                 "border-t px-2 not-last:border-r",
-                                "whitespace-nowrap",
+                                "text-center whitespace-nowrap",
                                 density[densityIndex],
                             )}
                             style={{
