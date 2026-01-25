@@ -1,6 +1,7 @@
 import {
     ColumnDef,
     getCoreRowModel,
+    getFilteredRowModel,
     InitialTableState,
     useReactTable,
     VisibilityState,
@@ -35,6 +36,10 @@ function SuperTable<TData>({
         //启用表行选择
         enableRowSelection: true,
         enableMultiRowSelection: true,
+        //全局过滤
+        getFilteredRowModel: getFilteredRowModel(),
+        //全局过滤函数: 忽略大小写的字符串包含
+        globalFilterFn: "includesString",
         state: {
             columnVisibility,
         },

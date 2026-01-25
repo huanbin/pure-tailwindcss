@@ -2,7 +2,6 @@ import { Table } from "@tanstack/react-table";
 import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon, FileDown, FileUp } from "lucide-react";
 import Dropdown from "./Dropdown";
 import Tooltip from "./Tooltip";
-import { json } from "node:stream/consumers";
 
 function TableCaption<TData>({
     densityIndex,
@@ -31,18 +30,20 @@ function TableCaption<TData>({
                 </div>
                 <div className="flex flex-row space-x-3">
                     {/* has-focus根据子元素设置父元素样式 */}
-                    <form className="border-foreground has-focus:border-accent relative flex w-120 items-center justify-center overflow-hidden rounded-md border transition duration-75 ease-in-out">
+                    {/* 将form换成div，实现客户端的过滤 */}
+                    <div className="border-foreground has-focus:border-accent relative flex w-120 items-center justify-center overflow-hidden rounded-md border transition duration-75 ease-in-out">
                         <input
                             name="keyword"
-                            placeholder="请输入关键字"
+                            onChange={(e) => table.setGlobalFilter(String(e.target.value))}
+                            placeholder="请输入关键字过滤"
                             className="w-full pl-3 focus:outline-0"
                         />
-                        <button
+                        {/* <button
                             type="submit"
                             className="bg-foreground/10 hover:bg-foreground/30 absolute inset-y-0 right-0 flex items-center p-4">
                             <SearchIcon className="h-4 w-4" />
-                        </button>
-                    </form>
+                        </button> */}
+                    </div>
 
                     <div className="space-x-3">
                         <button
