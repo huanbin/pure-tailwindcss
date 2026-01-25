@@ -14,16 +14,39 @@ function TableHead<TData>({ table, densityIndex }: { table: Table<TData>; densit
                             className={clsx(
                                 "relative px-2 not-last:border-r",
                                 density[densityIndex],
+                                //排序
+                                header.column.getCanSort() ? "cursor-pointer select-none" : "",
                             )}
+                            //点击排序
+                            onClick={header.column.getToggleSortingHandler()}
+                            title={
+                                header.column.getCanSort()
+                                    ? header.column.getNextSortingOrder() === "asc"
+                                        ? "Sort ascending"
+                                        : header.column.getNextSortingOrder() === "desc"
+                                          ? "Sort descending"
+                                          : "Clear sort"
+                                    : undefined
+                            }
                             colSpan={header.colSpan}
                             style={{
                                 width: header.getSize(),
-                            }}
-                        >
-                            {header.isPlaceholder
-                                ? null
-                                : flexRender(header.column.columnDef.header, header.getContext())}
+                            }}>
+                            {/* 套一层div，调整排序ui位置 */}
+                            <div className="flex justify-center gap-x-2">
+                                {header.isPlaceholder
+                                    ? null
+                                    : flexRender(
+                                          header.column.columnDef.header,
+                                          header.getContext(),
+                                      )}
 
+                                {/* 排序ui     */}
+                                {{
+                                    asc: " 🔼",
+                                    desc: " 🔽",
+                                }[header.column.getIsSorted() as string] ?? null}
+                            </div>
                             <div
                                 className={clsx(
                                     "absolute top-0 right-0 h-full w-1.5 cursor-col-resize touch-none opacity-0 transition duration-300 ease-in-out select-none hover:opacity-100",

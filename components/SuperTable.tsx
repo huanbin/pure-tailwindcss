@@ -2,6 +2,7 @@ import {
     ColumnDef,
     getCoreRowModel,
     getFilteredRowModel,
+    getSortedRowModel,
     InitialTableState,
     useReactTable,
     VisibilityState,
@@ -10,6 +11,12 @@ import React, { useState } from "react";
 import TableCaption from "./TableCaption";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+
+//排序
+type SortingState = {
+    id: string;
+    desc: boolean;
+};
 
 function SuperTable<TData>({
     data,
@@ -26,6 +33,11 @@ function SuperTable<TData>({
         updateDate: false,
     });
 
+    const [sorting, setSorting] = useState<SortingState[]>([
+        { id: "createDate", desc: false },
+        { id: "taxCode", desc: false },
+    ]); // can set initial sorting state here
+
     // 注意initialState 和 state同时设置，则 state 初始化将优先，而 initialState 将被忽略。
     const table = useReactTable({
         data,
@@ -40,9 +52,15 @@ function SuperTable<TData>({
         getFilteredRowModel: getFilteredRowModel(),
         //全局过滤函数: 忽略大小写的字符串包含
         globalFilterFn: "includesString",
+        //排序
+        getSortedRowModel: getSortedRowModel(),
+        //启用所有列多列排序
+        //enableMultiSort: true,
         state: {
             columnVisibility,
+            sorting,
         },
+        onSortingChange: setSorting,
         onColumnVisibilityChange: setColumnVisibility,
         // initialState: {
         //     columnVisibility: {
@@ -51,6 +69,7 @@ function SuperTable<TData>({
         //         updateDate: false,
         //     },
         // },
+        initialState: initState,
     });
 
     const [densityIndex, setDensityIndex] = useState(1);
