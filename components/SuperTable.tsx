@@ -24,7 +24,7 @@ function SuperTable<TData>({
     initState,
 }: {
     data: TData[];
-    columns: ColumnDef<TData, any>[];
+    columns: ColumnDef<TData, unknown>[];
     initState?: InitialTableState;
 }) {
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
