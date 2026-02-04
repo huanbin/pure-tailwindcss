@@ -28,6 +28,10 @@ function TableCaption<TData>({
     /* get state data and export to XLSX */
     const exportFile = useCallback(() => {
         console.log(JSON.stringify(selectedDatas));
+        if (selectedDatas.length === 0) {
+            alert("请先选择要导出的数据行");
+            return;
+        }
         /* generate worksheet from state */
         const ws = utils.json_to_sheet(selectedDatas);
         /* create workbook and append worksheet */
