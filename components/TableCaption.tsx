@@ -33,7 +33,13 @@ function TableCaption<TData>({
             return;
         }
         /* generate worksheet from state */
-        const ws = utils.json_to_sheet(selectedDatas);
+        const data_headers = ["序号", "公司名称", "税号", "开户行", "账号", "备注"];
+        const ws = utils.json_to_sheet(selectedDatas, {
+            // 默认header基于对象的key生成
+            // header: data_headers,
+        });
+        //添加一个数组数据到数据表，替换第一行的头部
+        utils.sheet_add_aoa(ws, [data_headers], { origin: "A1" });
         /* create workbook and append worksheet */
         const wb = utils.book_new();
         utils.book_append_sheet(wb, ws, "Data");
