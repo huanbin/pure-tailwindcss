@@ -35,12 +35,19 @@ function ImportSheetPage() {
             // defval: 空单元格默认值为空字符串
             // header: [] 自定义表头
             const presidents: President[] = utils.sheet_to_json<President>(ws, {
-                defval: "", header: ["id",
+                defval: "",
+                //输出格式化表头
+                header: [
+                    "id",
                     "companyName",
                     "taxCode",
                     "bankBranch",
                     "bankAccount",
-                    "note"]
+                    "note"
+                ],
+                //https://docs.sheetjs.com/docs/api/utilities/array/
+                //Use worksheet range but set starting row to the value
+                range: 1 //跳过第一行标题
             });
             console.log('presidents:', presidents);
             setPres(presidents); // update state
