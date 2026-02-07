@@ -77,6 +77,8 @@ const defaultColumns = [
         // footer: Used for formatting footers.
         //footer: (props) => props.column.id,
         sortingFn: "alphanumeric",
+        //禁用多列排序
+        enableMultiSort: false,
     }),
     {
         accessorKey: "name",

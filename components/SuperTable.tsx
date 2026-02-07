@@ -56,6 +56,10 @@ function SuperTable<TData>({
         getSortedRowModel: getSortedRowModel(),
         //启用所有列多列排序
         //enableMultiSort: true,
+        //normal click triggers multi-sorting
+        isMultiSortEvent: (e) => true,
+        // only allow 3 columns to be sorted at once
+        maxMultiSortColCount: 3,
         state: {
             columnVisibility,
             sorting,
