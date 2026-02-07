@@ -2,6 +2,9 @@ import { Table } from "@tanstack/react-table";
 import { Rows2Icon, Rows3Icon, Rows4Icon, SearchIcon, FileDown, FileUp } from "lucide-react";
 import Dropdown from "./Dropdown";
 import Tooltip from "./Tooltip";
+import { useCallback, useMemo } from "react";
+// 处理excel导入导出
+import { utils, writeFile } from "xlsx";
 
 function TableCaption<TData>({
     densityIndex,
@@ -12,11 +15,37 @@ function TableCaption<TData>({
     table: Table<TData>;
     densityHandler: () => void;
 }) {
-    const handleImportSheet = () => {};
-    const handleDownloadSheet = () => {
-        const datas = table.getSelectedRowModel();
-        console.log(JSON.stringify(datas));
-    };
+    const handleImportSheet = () => { };
+
+    const state = table.getState().rowSelection;
+
+    const selectedDatas = useMemo(() => {
+        console.log("TableCaption render");
+        // 返回过滤后的选定行数据（怎么不导出隐藏的列）
+        return table.getFilteredSelectedRowModel().rows.map((row) => row.original);
+    }, [table, state]);
+
+    /* get state data and export to XLSX */
+    const exportFile = useCallback(() => {
+        console.log(JSON.stringify(selectedDatas));
+        if (selectedDatas.length === 0) {
+            alert("请先选择要导出的数据行");
+            return;
+        }
+        /* generate worksheet from state */
+        const data_headers = ["序号", "公司名称", "税号", "开户行", "账号", "备注"];
+        const ws = utils.json_to_sheet(selectedDatas, {
+            // 默认header基于对象的key生成
+            // header: data_headers,
+        });
+        //添加一个数组数据到数据表，替换第一行的头部
+        utils.sheet_add_aoa(ws, [data_headers], { origin: "A1" });
+        /* create workbook and append worksheet */
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, "Data");
+        /* export to XLSX */
+        writeFile(wb, "SheetJSReactAoO.xlsx");
+    }, [selectedDatas]);
 
     return (
         <caption className="bg-invert sticky top-0 z-1000 border-b p-4">
@@ -56,7 +85,7 @@ function TableCaption<TData>({
                         <Tooltip tipText="下载excel文件">
                             <button
                                 className="btn btn-circle bg-white/10 hover:bg-white/30"
-                                onClick={handleDownloadSheet}>
+                                onClick={exportFile}>
                                 <FileDown className="size-4" />
                             </button>
                         </Tooltip>

@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+// 供应商
+model Vendor {
+  id           String    @id @default(uuid())
+  name         String    @unique
+  taxCode      String
+  bankAccount  String
+  bankBranch   String
+  contactEmail String?
+  phoneNumber  String?
+  address      String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime?
+  orders       Order[]
+  //备注信息
+  description String?
+}
+// 原材料
+model Material {
+  id          String    @id @default(uuid())
+  codeNumber  String
+  name        String
+  type        String?
+  // 数量
+  quantity    Int
+  // 数量单位
+  unit        String
+  // 含税单价
+  price       Float
+  // 图片链接
+  pictureUrl  String?
+  //备注信息
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  orderNumber     String
+  order       Order     @relation(fields: [orderNumber], references: [id])
+
+  // 复合唯一键，确保同一订单中材料代码唯一
+  @@unique([codeNumber, orderNumber])
+}
+// 订单
+model Order {
+  id          String     @id @default(uuid())
+  orderNumber String     @unique
+  vendorId    String
+  orderDate   DateTime   @default(now())
+  status      OrderStatus @default(PENDING)
+  totalAmount Float
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime?
+  material    Material[]
+  vendor      Vendor     @relation(fields: [vendorId], references: [id])
+  //备注信息
+  description String?
+}
+// 枚举订单状态
+enum OrderStatus {
+  //待审批的
+  PENDING
+  //核准的
+  APPROVED
+  //拒绝的
+  REJECTED
+  //完成的
+  COMPLETED
+}
